@@ -22,11 +22,11 @@ I suggest also creating a file /etc/xinetd.d/telnets with the following contents
 \# description: TelnetS is a secure SSL login server.\
 service telnets\
 {\
-        socket_type     = stream\
-        protocol        = tcp\
-        wait            = no\
-        user            = root\
-        server          = /usr/sbin/in.telnetd\
-        server_args     = -L /bin/login -N -z secure -z ssl\
-        disable         = no\
+\        socket_type     = stream\
+\        protocol        = tcp\
+\        wait            = no\
+\        user            = root\
+\        server          = /usr/sbin/in.telnetd\
+\        server_args     = -L /bin/login -N -z secure -z ssl\
+\        disable         = no\
 }
