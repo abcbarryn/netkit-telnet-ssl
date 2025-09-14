@@ -1,0 +1,11 @@
+--- telnetd/telnetd.8.orig	2015-01-09 20:22:23.000000000 +0100
++++ telnetd/telnetd.8	2015-01-10 00:30:52.891551907 +0100
+@@ -323,7 +323,7 @@
+ .Ed
+ .Pp
+ The pseudo-terminal allocated to the client is configured
+-to operate in \(lqcooked\(rq mode, and with 
++to operate in \(Lqcooked\(Rq mode, and with 
+ .Dv XTABS
+ .Dv CRMOD
+ enabled (see
