@@ -1,0 +1,1 @@
+/usr/bin/cc -I/usr/include/libseccomp -L/usr/lib64     -D_GNU_SOURCE     -Ddebian     -DACCEPT_USERVAR     -DSSL_LOG_FILE='"/var/tmp/telnetd.log"'     -Wall     -Wno-trigraphs  -L/usr/lib64 -Wl,--dependency-file=CMakeFiles/telnetlogin.dir/link.d CMakeFiles/telnetlogin.dir/telnetlogin.c.o -o telnetlogin

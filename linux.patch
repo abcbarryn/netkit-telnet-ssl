@@ -1,0 +1,64 @@
+--- telnet/main.cc	2025-09-12 14:43:02.950298673 -0400
++++ telnet/main.cc	2025-09-12 14:06:52.175516755 -0400
+@@ -53,4 +53,6 @@
+ #include "proto.h"
+ 
++#include <stdlib.h>
++
+ /*
+  * Initialize variables.
+--- telnet/netlink.cc	2000-07-23 00:16:25.000000000 -0400
++++ telnet/netlink.cc	2025-09-12 14:14:27.497789259 -0400
+@@ -13,4 +13,6 @@
+ #include "ring.h"
+ 
++#include <string.h>
++
+ /* In Linux, this is an enum */
+ #if defined(__linux__) || defined(IPPROTO_IP)
+--- telnet/network.cc	1996-08-13 04:09:58.000000000 -0400
++++ telnet/network.cc	2025-09-12 14:07:27.519699104 -0400
+@@ -50,4 +50,6 @@
+ #include "netlink.h"
+ 
++#include <stdlib.h>
++
+ ringbuf netoring;
+ ringbuf netiring;
+--- telnet/terminal.cc	1999-12-12 14:48:05.000000000 -0500
++++ telnet/terminal.cc	2025-09-12 14:09:58.264469053 -0400
+@@ -54,4 +54,7 @@
+ #include "terminal.h"
+ 
++#include <stdlib.h>
++#include <string.h>
++
+ static int TerminalWrite(const char *buf, int n);
+ static int TerminalRead(char *buf, int n);
+--- telnet/utilities.cc	1999-12-12 10:33:40.000000000 -0500
++++ telnet/utilities.cc	2025-09-12 14:12:58.993355264 -0400
+@@ -55,4 +55,7 @@
+ #include "terminal.h"
+ 
++#include <stdlib.h>
++#include <string.h>
++
+ FILE *NetTrace = 0;		/* Not in bss, since needs to stay */ /* ? */
+ char NetTraceFile[256] = "(standard output)";
+--- telnet/Makefile	1999-08-01 01:06:37.000000000 -0400
++++ telnet/Makefile	2025-09-12 14:21:28.387853156 -0400
+@@ -8,4 +8,5 @@
+ # -DAUTHENTICATE
+ CXXFLAGS += -DUSE_TERMIO -DKLUDGELINEMODE
++LIBS += -lstdc++
+ LIBS += $(LIBTERMCAP)
+ 
+--- telnetd/utility.c	1999-12-12 09:59:45.000000000 -0500
++++ telnetd/utility.c	2025-09-12 14:26:16.777267297 -0400
+@@ -47,4 +47,6 @@
+ #endif
+ 
++#include <time.h>
++
+ #include "telnetd.h"
+ 
