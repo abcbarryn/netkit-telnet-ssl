@@ -1,12 +1,10 @@
-netkit-telnet
-=============
+netkit-telnet-ssl
+=================
 
 This is https://packages.debian.org/source/sid/netkit-telnet , with some
-bugfixes.
+bugfixes and SSL support.
 
-*Note:* Besides `netkit-telnet`, there's also a `netkit-telnet-ssl` package,
-that only differs in the fact that the later adds an argument if you want to
-make a telnet connection over SSL. The version on my fork (with the bugfixes)
-for `netkit-telnet-ssl` also exists, and is updated quite more often.
+*Note:* This is the `netkit-telnet-ssl` package, whichadds an argument if you want to
+make a telnet connection over SSL.
 
 * netkit-telnet-ssl: https://github.com/marado/netkit-telnet-ssl
