@@ -16,6 +16,7 @@ make\
 \
 To install run make install, then run:\
 ./SOURCES/generate_cert.sh /etc/telnetd-ssl/telnetd.pem\
+\
 I suggest also creating a file /etc/xinetd.d/telnets with the following contents:\
 \
 \# default: on\
