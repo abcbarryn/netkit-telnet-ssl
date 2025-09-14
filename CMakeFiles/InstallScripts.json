@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/usr/src/packages/BUILD/telnet-ssl-0.17.42/cmake_install.cmake",
+		"/usr/src/packages/BUILD/telnet-ssl-0.17.42/telnet/cmake_install.cmake",
+		"/usr/src/packages/BUILD/telnet-ssl-0.17.42/telnetd/cmake_install.cmake",
+		"/usr/src/packages/BUILD/telnet-ssl-0.17.42/telnetlogin/cmake_install.cmake",
+		"/usr/src/packages/BUILD/telnet-ssl-0.17.42/libtelnet/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

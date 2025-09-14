@@ -1,0 +1,3 @@
+debian/openssl.cnf  etc/telnetd-ssl/
+usr/bin/telnetlogin usr/lib/
+usr/sbin/in.telnetd
