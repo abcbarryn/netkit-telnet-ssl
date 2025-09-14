@@ -29,4 +29,4 @@ service telnets\
         server          = /usr/sbin/in.telnetd\
         server_args     = -L /bin/login -N -z secure -z ssl\
         disable         = no\
-}\
+}
