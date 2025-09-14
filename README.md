@@ -33,3 +33,5 @@ service telnets\
 }
 
 On modern CentOS and Redhat Linux you will need to create a systemd socket definition. SuSE also supports systemd sockets but also supports xinetd.
+
+You may want to install a CA signed certificate and key into /etc/telnetd-ssl/telnetd.pem since the generate_cert.sh script only installs a self signed one.
