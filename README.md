@@ -17,7 +17,7 @@ make\
 To install run make install, then run:\
 ./SOURCES/generate_cert.sh /etc/telnetd-ssl/telnetd.pem\
 \
-I suggest also creating a file /etc/xinetd.d/telnets with the following contents:\
+On SuSE Leap Linux you need to will create a file /etc/xinetd.d/telnets with the following contents:\
 \
 \# default: on\
 \# description: TelnetS is a secure SSL login server.\
@@ -31,3 +31,5 @@ service telnets\
         server_args     = -L /bin/login -N -z secure -z ssl\
         disable         = no\
 }
+
+On modern CentOS and Redhat Linux you will need to create a systemd socket definition. SuSE also supports systemd sockets but also supports xinetd.
