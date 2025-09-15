@@ -24,6 +24,8 @@ Source1:	generate_cert.sh
 BuildRequires:  cmake
 BuildRequires:  libopenssl-3-devel
 BuildRequires:  ncurses-devel
+BuildRequires:  gcc-c++
+BuildRequires:  gcc
 Requires:	libopenssl3
 Requires:	ncurses
 
@@ -36,8 +38,9 @@ Summary:        A Server Program for the Telnet Remote Login Protocol
 Group:          Productivity/Networking/Other
 Requires:       netcfg
 Requires:       util-linux
-Requires:	libopenssl3
-Requires:	openssl
+Requires:       libopenssl3
+Requires:       openssl
+Requires:       xinetd
 Provides:       nkitserv:%{_sbindir}/in.telnetd
 Obsoletes:      nkitserv
 
@@ -101,9 +104,11 @@ ln -s /usr/share/man/man1/telnet-ssl.1.gz %{buildroot}/usr/share/man/man1/telnet
 %pre
 
 %post
-chmod 755 /etc/telnetd-ssl/generate_cert.sh
+
+%post server
+chmod 755 /etc/telnetd-ssl/generate_cert.sh || true
 /etc/telnetd-ssl/generate_cert.sh /etc/telnetd-ssl/telnetd.pem || true
-chmod 600 /etc/telnetd-ssl/telnetd.pem
+chmod 600 /etc/telnetd-ssl/telnetd.pem || true
 
 %preun
 
@@ -121,8 +126,10 @@ chmod 600 /etc/telnetd-ssl/telnetd.pem
 /usr/sbin/in.telnetd
 /usr/share/man/man5/issue.net.5.gz
 /usr/share/man/man8/in.telnetd.8.gz
+%dir /etc/telnetd-ssl
 /etc/telnetd-ssl/generate_cert.sh
 %config(noreplace) /usr/lib/telnetlogin
+%dir /etc/xinetd.d
 %config(noreplace) /etc/xinetd.d/telnets
 
 %changelog
