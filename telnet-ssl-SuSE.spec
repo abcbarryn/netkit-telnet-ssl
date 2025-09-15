@@ -21,7 +21,6 @@ License:        GPL-2.0-only
 Group:          Productivity/Networking/Other
 Source:         netkit-telnet-ssl-SuSE.tgz
 Source1:	generate_cert.sh
-Patch1:		telnet-default-ssl.patch
 BuildRequires:  cmake
 BuildRequires:  libopenssl-3-devel
 BuildRequires:  ncurses-devel
@@ -50,7 +49,6 @@ Netkit telnet server SSL (netkit-telnet-ssl-server) is an SSL telnet server.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 export CPPFLAGS="-I/usr/include/libseccomp"
