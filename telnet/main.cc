@@ -148,6 +148,12 @@ main(int argc, char *argv[])
 	rlogin = (strncmp(prompt, "rlog", 4) == 0) ? '~' : _POSIX_VDISABLE;
 	autologin = -1;
 
+	if (strcmp(prompt, "telnet-ssl") == 0)
+	{
+		ssl_only_flag=1;
+		ssl_secure_flag=1;
+	}
+
 	while ((ch = getopt(argc, argv,
 			    "4678EKLS:X:ab:de:k:l:n:rt:xz:")) != EOF) {
 		switch(ch) {
@@ -384,6 +390,9 @@ main(int argc, char *argv[])
 		*argp++ = argv[0];		/* host */
 		if (argc > 1)
 			*argp++ = argv[1];	/* port */
+		else
+			if (strcmp(prompt, "telnet-ssl") == 0)
+				*argp++ = "992";
 		*argp = 0;
 
 		if (sigsetjmp(toplevel, 1) != 0)
