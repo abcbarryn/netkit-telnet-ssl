@@ -21,6 +21,7 @@ License:        GPL-2.0-only
 Group:          Productivity/Networking/Other
 Source:         netkit-telnet-ssl-SuSE.tgz
 Source1:	generate_cert.sh
+Patch1:         telnet-default-ssl.patch
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
 BuildRequires:  ncurses-devel
@@ -47,6 +48,7 @@ Netkit telnet server SSL (netkit-telnet-ssl-server) is an SSL telnet server.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 export CPPFLAGS="-I/usr/include/libseccomp"
@@ -87,28 +89,22 @@ User=root
 Group=root
 StandardInput=socket
 @EOF@
-mv %{buildroot}/usr/bin/telnet-ssl %{buildroot}/usr/lib/telnet-ssl
-cat >%{buildroot}/usr/bin/telnet-ssl <<@EOF@
-#!/bin/sh
-
-if [ \$# -gt 0 ]
-then
-        exec /usr/lib/telnet-ssl -z ssl -z secure \$@ 992
-else
-        exec /usr/lib/telnet-ssl -z ssl -z secure
-fi
-@EOF@
-chmod 755 %{buildroot}/usr/bin/telnet-ssl
-ln -s ../../../usr/lib/telnet-ssl %{buildroot}/usr/bin/telnet
 ln -s ../../../bin/login %{buildroot}/usr/lib/telnetlogin
 mkdir -p %{buildroot}/etc/telnetd-ssl
 cp %{SOURCE1} %{buildroot}/etc/telnetd-ssl/generate_cert.sh
 chmod 755 %{buildroot}/etc/telnetd-ssl/generate_cert.sh
-ln -s ../../../../../usr/share/man/man1/telnet-ssl.1.gz %{buildroot}/usr/share/man/man1/telnet.1.gz
+(
+cd %{buildroot}/usr/share/man/man1
+ln -s telnet-ssl.1.gz telnet.1.gz
+cd %{buildroot}/usr/bin
+ln -s telnet-ssl telnet
+)
 
 %pre
 
 %post
+
+%post server
 chmod 755 /etc/telnetd-ssl/generate_cert.sh
 /etc/telnetd-ssl/generate_cert.sh /etc/telnetd-ssl/telnetd.pem || true
 chmod 600 /etc/telnetd-ssl/telnetd.pem
@@ -119,7 +115,6 @@ chmod 600 /etc/telnetd-ssl/telnetd.pem
 
 %files
 %defattr(-,root,root)
-/usr/lib/telnet-ssl
 /usr/bin/telnet-ssl
 /usr/bin/telnet
 /usr/share/man/man1/telnet-ssl.1.gz
