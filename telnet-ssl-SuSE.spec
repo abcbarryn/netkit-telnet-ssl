@@ -15,12 +15,13 @@
 
 Name:           telnet-ssl
 Version:        0.17.42
-Release:        lp156.22.1
-Summary:        SSL Telnet server
+Release:        lp156.16.1
+Summary:        SSL/TLS enabled Telnet
 License:        GPL-2.0-only
 Group:          Productivity/Networking/Other
 Source:         netkit-telnet-ssl-SuSE.tgz
 Source1:	generate_cert.sh
+Patch1:		telnet-default-ssl.patch
 BuildRequires:  cmake
 BuildRequires:  libopenssl-3-devel
 BuildRequires:  ncurses-devel
@@ -34,7 +35,7 @@ Netkit telnet SSL (netkit-telnet-ssl) is an implementation of the telnet
 protocol for logging into remote systems which supports SSL.
 
 %package server
-Summary:        A Server Program for the Telnet Remote Login Protocol
+Summary:        Server for Telnet with SSL/TLS support
 Group:          Productivity/Networking/Other
 Requires:       netcfg
 Requires:       util-linux
@@ -49,6 +50,7 @@ Netkit telnet server SSL (netkit-telnet-ssl-server) is an SSL telnet server.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 export CPPFLAGS="-I/usr/include/libseccomp"
@@ -124,3 +126,4 @@ chmod 600 /etc/telnetd-ssl/telnetd.pem || true
 %config(noreplace) /etc/xinetd.d/telnets
 
 %changelog
+
