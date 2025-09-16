@@ -10,35 +10,58 @@ make a telnet connection over SSL.
 * netkit-telnet-ssl: https://github.com/marado/netkit-telnet-ssl
 \
 To build unpack the source code and run:\
-./configure --prefix=/usr\
-cmake . --install-prefix /usr\
-make\
-\
+```
+./configure --prefix=/usr
+cmake . --install-prefix /usr
+make
+```
+
 To install run make install, then run:\
-./SOURCES/generate_cert.sh /etc/telnetd-ssl/telnetd.pem\
-\
+```
+./SOURCES/generate_cert.sh /etc/telnetd-ssl/telnetd.pem
+```
+
 On SuSE Leap Linux you need to will create a file /etc/xinetd.d/telnets with the following contents:\
-\
-\# default: on\
-\# description: TelnetS is a secure SSL login server.\
-service telnets\
-{\
-        socket_type     = stream\
-        protocol        = tcp\
-        wait            = no\
-        user            = root\
-        server          = /usr/sbin/in.telnetd\
-        server_args     = -L /bin/login -N -z secure -z ssl\
-        disable         = no\
+```
+# default: on
+# description: TelnetS is a secure SSL login server.
+service telnets
+{
+        socket_type     = stream
+        protocol        = tcp
+        wait            = no
+        user            = root
+        server          = /usr/sbin/in.telnetd
+        server_args     = -L /bin/login -N -z secure -z ssl
+        disable         = no
 }
+```
 
 On modern CentOS and Redhat Linux you will need to create a systemd socket definition. SuSE also supports systemd sockets but also supports xinetd.
 
-You may want to install a CA signed certificate and key into /etc/telnetd-ssl/telnetd.pem since the generate_cert.sh script only installs a self signed one.
+You may want to install a CA signed certificate and key into /etc/telnetd-ssl/telnetd.pem since the generate_cert.sh script only installs a self signed one. If you try use the self signed certificate you will probably get an error message saying it can't be verified. If that happens you can dump the public part of the certificate to a file so you can trust it. The command to dump the certificate is: 
+```
+openssl s_client -connect your.host.address:992 </dev/null 2>/dev/null | openssl x509 -out cert.pem
+```
 
-The commands "telnet -z ssl -z secure -z cacert=C:\NetKit\ca-bundle.trust.crt 192.168.0.1 992" and "telnet-ssl 192.168.0.1" are equivavlent, telnet-ssl defaults to -z ssl -z secure -z cacert=ca-bundle.trust.crt and port 992. The command telnet defaults to operating as a normal telnet on port 23.
+This will output the certificate to the file cert.pem. Then you can either run:
+```
+telnet-ssl -z cacert=cert.pem your.host.address
+```
 
-<pre>
+Or you can tell your system to trust the certificate as a trusted cert.
+
+The commands 
+```
+telnet -z ssl -z secure -z cacert=C:\NetKit\ca-bundle.trust.crt 192.168.0.1 992
+```
+ and 
+```
+telnet-ssl 192.168.0.1
+```
+ are equivavlent, telnet-ssl defaults to -z ssl -z secure -z cacert=ca-bundle.trust.crt and port 992. The command telnet defaults to operating as a normal telnet on port 23.
+
+```
 TELNET(1)                                        General Commands Manual                                      TELNET(1)
 
 NAME
@@ -556,4 +579,4 @@ BUGS
        The source code is not comprehensible.
 
 Linux NetKit (0.17)                                 August 15, 1999                                           TELNET(1)
-</pre>
+```
