@@ -1866,8 +1866,11 @@ int tn(int argc, const char *argv[]) {
 	}
     }
     else {
-	portp = "telnet";
-	telnetport = 1;
+		if (strcmp(prompt,"telnet")==0)
+			portp = "telnet";
+		else
+			portp = "telnets";
+		telnetport = 1;
     }
 
     /* We only understand SOCK_STREAM sockets. */
