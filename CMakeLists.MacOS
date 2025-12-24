@@ -1,0 +1,46 @@
+cmake_minimum_required(VERSION 3.7)
+project(netkit-telnet-ssl)
+
+set(BIN_DIR "${CMAKE_INSTALL_PREFIX}/bin")
+set(SBIN_DIR "${CMAKE_INSTALL_PREFIX}/sbin")
+set(MAN_DIR "${CMAKE_INSTALL_PREFIX}/share/man")
+
+set(USE_GLIBC 1)
+
+set(
+    CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -D_GNU_SOURCE \
+    -Ddebian \
+    -DACCEPT_USERVAR \
+    -DSSL_LOG_FILE='\"/var/tmp/telnetd.log\"' \
+    -Wall \
+    -Wno-trigraphs \
+    -I/opt/homebrew/include \
+    -I/opt/homebrew/include/openssl \
+    -Lstaticlib \
+    -Xclang -target-sdk-version=15.5 --sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk -mmacosx-version-min=15.5 \
+")
+set(
+    CMAKE_C_FLAGS "${CMAKE_C_FLAGS} \
+    -D_GNU_SOURCE \
+    -Ddebian \
+    -DACCEPT_USERVAR \
+    -DSSL_LOG_FILE='\"/var/tmp/telnetd.log\"' \
+    -Wall \
+    -Wno-trigraphs \
+    -I/opt/homebrew/include \
+    -I/opt/homebrew/include/openssl \
+    -Lstaticlib \
+    -Xclang -target-sdk-version=15.5 --sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk -mmacosx-version-min=15.5 \
+")
+set(
+    CMAKE_LD_FLAGS "${CMAKE_LD_FLAGS} \
+    -Lstaticlib \
+    -Xclang -target-sdk-version=15.5 --sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX15.5.sdk -mmacosx-version-min=15.5 \
+")
+
+find_library(USE_TERMCAP ncurses REQUIRED)
+
+add_subdirectory(telnet)
+add_subdirectory(libtelnet)
+# add_subdirectory(telnetd)
